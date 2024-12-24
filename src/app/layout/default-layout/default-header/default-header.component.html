@@ -15,16 +15,16 @@
       <c-nav-item>
         <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       </c-nav-item>
-      <c-nav-item>
+      <!-- <c-nav-item>
         <a cNavLink routerLink="/users" routerLinkActive="active">Users</a>
       </c-nav-item>
       <c-nav-item>
         <a cNavLink routerLink="/settings" routerLinkActive="active">Settings</a>
-      </c-nav-item>
+      </c-nav-item> -->
     </c-header-nav>
 
     <c-header-nav class="d-none d-md-flex ms-auto ">
-      <a cNavLink>
+      <!-- <a cNavLink>
         <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
       </a>
       <a cNavLink>
@@ -32,7 +32,7 @@
       </a>
       <a cNavLink>
         <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
-      </a>
+      </a> -->
     </c-header-nav>
 
     <c-header-nav class="ms-auto ms-md-0">
@@ -46,7 +46,7 @@
     </c-header-nav>
 
     <c-header-nav class="mx-0">
-      <ng-container *ngTemplateOutlet="userDropdown" />
+      <!-- <ng-container *ngTemplateOutlet="userDropdown" /> -->
     </c-header-nav>
 
   </c-container>
@@ -56,7 +56,7 @@
 </ng-container>
 <!--</c-header>-->
 
-<ng-template #userDropdown>
+<!-- <ng-template #userDropdown>
   <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
     <button [caret]="false" cDropdownToggle class="py-0 pe-0" aria-label="Open user menu">
       <c-avatar
@@ -157,7 +157,7 @@
       </li>
     </ul>
   </c-dropdown>
-</ng-template>
+</ng-template> -->
 
 <ng-template #themeDropdown>
   <c-dropdown alignment="end" variant="nav-item">
