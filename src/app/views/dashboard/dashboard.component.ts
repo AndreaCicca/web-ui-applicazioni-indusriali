@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
 
   public toastMessage = 'Errore durante l\'invio del messaggio';
 
-  public apiEndpoint : string = "YOUR_API_ENDPOINT";
+  public apiEndpoint : string = "http://localhost:7777/query";
   public loading = false;
   public showToast = false;
 
@@ -65,22 +65,36 @@ export class DashboardComponent implements OnInit {
   }
 
   sendMessage(): void {
-    if (this.userMessage.trim()) {
-      this.loading = true;
-      this.http.post<{ response: string }>(this.apiEndpoint, { message: this.userMessage }).subscribe(
-        (response) => {
-          this.botResponse = response.response
-          this.loading = false;
-        },
-        (error) => {
-          this.toggleToast();
-          this.loading = false;
-          this.botResponse = 'Errore durante l\'invio del messaggio';
-        }
-      );
-      this.userMessage = '';
+    // Verifica se il messaggio dell'utente non è vuoto o composto solo da spazi
+    if (!this.userMessage.trim()) {
+        return; // Esci dalla funzione se il messaggio è vuoto
     }
-  }
+
+    // Imposta lo stato di caricamento a true
+    this.loading = true;
+
+    // Invia la richiesta POST all'API
+    this.http.post<{ response: string }>(this.apiEndpoint, { query: this.userMessage.trim() }).subscribe({
+        next: (response) => {
+            // Gestisci la risposta dell'API
+            this.botResponse = response.response; // Imposta la risposta del bot
+            console.log(response.response);
+            this.loading = false; // Disabilita lo stato di caricamento
+        },
+        error: (error) => {
+            // Gestisci gli errori
+            console.error('Errore durante l\'invio del messaggio:', error); // Log dell'errore
+            this.toggleToast(); // Mostra un toast di errore
+            this.loading = false; // Disabilita lo stato di caricamento
+            this.botResponse = 'Errore durante l\'invio del messaggio'; // Imposta un messaggio di errore
+        },
+        complete: () => {
+            // Azioni da eseguire al completamento della richiesta (opzionale)
+            this.userMessage = ''; // Resetta il campo del messaggio dell'utente
+        }
+    });
+}
+
 
   closeToast(): void {
     this.showToast = false;
