@@ -1,76 +1,149 @@
-:host {
-  .legend {
-    small {
-      font-size: x-small;
-    }
+.legend {
+  small {
+    font-size: x-small;
   }
+}
 
-  .chatbot-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(80vh - 100px);
-  }
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(85vh - 100px);
+  // height: 100vh;
+}
 
-  .chatbot-card {
-    width: 100%;
-    max-width: 80%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 40px rgba(90, 0, 209, 0.5);
-  }
+.chatbot-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 40px rgba(90, 0, 209, 0.5);
+  border-radius: 20px;
+}
 
-  .chatbot-messages {
-    flex-grow: 1;
-    margin-bottom: 10px;
-    padding: 10px;
-    overflow-y: auto; /* Abilita lo scroll verticale */
-    max-height: calc(90vh - 200px); /* Limita l'altezza massima */
-    border-radius: 4px;
-  }
+.query-section,
+.response-section {
+  margin-bottom: 10px;
+}
 
-  .user-message {
-    background-color: #28a745; /* Verde */
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 5px 0;
-    align-self: flex-end;
-  }
+.response-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
 
-  .bot-message {
-    background-color: #007bff; /* Blu */
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 5px 0;
-    align-self: flex-start;
-  }
+.query-section input,
+.response-section textarea {
+  width: 100%;
+  padding: 10px;
+}
 
-  .chatbot-input {
-    display: flex;
-    gap: 10px;
-  }
+.response-section textarea {
+  flex-grow: 1;
+  resize: none;
+  height: auto;
+}
 
-  .chatbot-input input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+.loader {
+  --w: 10ch;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  letter-spacing: var(--w);
+  width: var(--w);
+  overflow: hidden;
+  white-space: nowrap;
+  text-shadow:
+    calc(-1 * var(--w)) 0,
+    calc(-2 * var(--w)) 0,
+    calc(-3 * var(--w)) 0,
+    calc(-4 * var(--w)) 0,
+    calc(-5 * var(--w)) 0,
+    calc(-6 * var(--w)) 0,
+    calc(-7 * var(--w)) 0,
+    calc(-8 * var(--w)) 0,
+    calc(-9 * var(--w)) 0;
+  animation: l16 2s infinite;
+}
 
-  .chatbot-input button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.loader:before {
+  content: "Loading...";
+}
 
-  .no-messages {
-    text-align: center;
-    color: #999;
-    margin-top: 20px;
+@keyframes l16 {
+  20% {
+    text-shadow:
+      calc(-1 * var(--w)) 0,
+      calc(-2 * var(--w)) 0 red,
+      calc(-3 * var(--w)) 0,
+      calc(-4 * var(--w)) 0 #ffa516,
+      calc(-5 * var(--w)) 0 #63fff4,
+      calc(-6 * var(--w)) 0,
+      calc(-7 * var(--w)) 0,
+      calc(-8 * var(--w)) 0 green,
+      calc(-9 * var(--w)) 0;
   }
+  40% {
+    text-shadow:
+      calc(-1 * var(--w)) 0,
+      calc(-2 * var(--w)) 0 red,
+      calc(-3 * var(--w)) 0 #e945e9,
+      calc(-4 * var(--w)) 0,
+      calc(-5 * var(--w)) 0 green,
+      calc(-6 * var(--w)) 0 orange,
+      calc(-7 * var(--w)) 0,
+      calc(-8 * var(--w)) 0 green,
+      calc(-9 * var(--w)) 0;
+  }
+  60% {
+    text-shadow:
+      calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0,
+      calc(-3 * var(--w)) 0 #e945e9,
+      calc(-4 * var(--w)) 0,
+      calc(-5 * var(--w)) 0 green,
+      calc(-6 * var(--w)) 0,
+      calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 #ffa516,
+      calc(-9 * var(--w)) 0 red;
+  }
+  80% {
+    text-shadow:
+      calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 yellow,
+      calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 #ffa516,
+      calc(-5 * var(--w)) 0 red,
+      calc(-6 * var(--w)) 0,
+      calc(-7 * var(--w)) 0 grey,
+      calc(-8 * var(--w)) 0 #63fff4,
+      calc(-9 * var(--w)) 0;
+  }
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 200px;
+  z-index: 1050;
+  // background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.toast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  // border-bottom: 1px solid #e9ecef;
+  // background-color: #f8f9fa;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.toast-body {
+  padding: 1rem;
 }

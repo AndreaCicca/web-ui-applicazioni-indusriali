@@ -2,21 +2,36 @@
   <c-col>
     <c-card class="chatbot-card">
       <c-card-body class="d-flex flex-column">
-        <div class="chatbot-messages flex-grow-1 d-flex flex-column">
-          @for (message of messages; track message) {
-            <div [ngClass]="message.user ? 'user-message' : 'bot-message'">
-              {{ message.text }}
-            </div>
-          }
-          @empty {
-            <div class="no-messages">Nessun messaggio trovato</div>
-          }
+        <div class="query-section">
+          <label for="userQuery">La tua query:</label>
+          <input id="userQuery" [(ngModel)]="userMessage" name="userMessage" placeholder="Scrivi la tua query..." />
+        </div>
+        <div class="response-section">
+          <label for="botResponse">Risposta:</label>
+          <textarea id="botResponse" [(ngModel)]="botResponse" name="botResponse" readonly></textarea>
+          <div *ngIf="loading" class="loader"></div>
         </div>
         <form cForm (ngSubmit)="sendMessage()" class="chatbot-input">
-          <input cFormControl [(ngModel)]="userMessage" name="userMessage" placeholder="Scrivi un messaggio..." />
           <button cButton color="primary" type="submit">Invia</button>
         </form>
       </c-card-body>
     </c-card>
   </c-col>
 </c-row>
+
+<!-- Toast -->
+<c-toaster [placement]="position" class="p-3" position="fixed">
+  <c-toast
+    (timer)="onTimerChange($event)"
+    (visibleChange)="onVisibleChange($event)"
+    [visible]="visible()"
+  >
+    <c-toast-header>
+      Notifica
+    </c-toast-header>
+    <c-toast-body>
+      <p>{{this.toastMessage}} {{this.apiEndpoint}}</p>
+      <c-progress thin [value]="percentage()" />
+    </c-toast-body>
+  </c-toast>
+</c-toaster>
