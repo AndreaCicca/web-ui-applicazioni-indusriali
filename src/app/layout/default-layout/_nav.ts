@@ -9,7 +9,13 @@ export const navItems: INavData[] = [
       color: 'info',
       text: 'Chat Bot'
     }
-  },
+  }
+    ,
+    {
+    name: 'Impostazioni',
+    url: '/impostazioni',
+    iconComponent: { name: 'cil-settings' },
+  }
   // {
   //   title: true,
   //   name: 'Theme'
