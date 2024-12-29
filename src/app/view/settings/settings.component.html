@@ -1,1 +1,30 @@
-<p>settings works!</p>
+<div class="settings-container">
+  <h2>Settings</h2>
+
+  <form cForm class="form-control">
+    <label for="apiPath">API Path:</label>
+    <input
+      id="apiPath"
+      name="apiPath"
+      [(ngModel)]="apiPath"
+      placeholder="Inserisci la path della tua API"
+    />
+    <button cButton color="primary" (click)="saveApiPath()">Salva Path</button>
+  </form>
+
+  <h3>Key-Value Correnti</h3>
+  <table cTable [striped]="true">
+    <thead>
+      <tr>
+        <th>Chiave</th>
+        <th>Valore</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>API Corrente</td>
+        <td>{{ this.sharedService.getApiPath() }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

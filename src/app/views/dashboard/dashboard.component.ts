@@ -1,8 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SharedService } from '../../shared.service';
 import {
   ButtonDirective,
   CardBodyComponent,
@@ -35,7 +37,7 @@ interface IMessage {
 
 })
 export class DashboardComponent implements OnInit {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private sharedService: SharedService) { }
 
   public userMessage = '';
   public botResponse = '';
@@ -46,12 +48,18 @@ export class DashboardComponent implements OnInit {
   public loading = false;
   public showToast = false;
 
+  public serviceAPIPath = '';
+
+  private subscription!: Subscription;
+
   position = 'top-end';
   visible = signal(false);
   percentage = signal(0);
 
   ngOnInit(): void {
-    // Inizializzazione se necessaria
+    this.subscription = this.sharedService.apiPath$.subscribe(data => {
+      this.serviceAPIPath = data;
+    });
   }
 
   sendMessage(): void {
@@ -62,6 +70,11 @@ export class DashboardComponent implements OnInit {
 
     // Imposta lo stato di caricamento a true
     this.loading = true;
+
+    if (this.serviceAPIPath) {
+      this.apiEndpoint = this.serviceAPIPath;
+    }
+
 
     // Invia la richiesta POST all'API
     this.http.post<{ response: string }>(this.apiEndpoint, { query: this.userMessage.trim() }).subscribe({
