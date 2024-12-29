@@ -31,10 +31,6 @@ function isOverflown(element: HTMLElement) {
     styleUrls: ['./default-layout.component.scss'],
     imports: [
         SidebarComponent,
-        SidebarHeaderComponent,
-        SidebarBrandComponent,
-        RouterLink,
-        IconDirective,
         NgScrollbar,
         SidebarNavComponent,
         SidebarFooterComponent,
