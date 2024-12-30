@@ -15,3 +15,9 @@
 .select-week .calendar-row.current {
   cursor: pointer;
 }
+
+:root {
+  --primary-color-purple: rgba(90, 0, 209, 0.5);
+  --border-color-purple: rgba(90, 0, 209, 0.5);
+  --box-shadow-color-purple: rgba(0, 0, 0, 0.1);
+}

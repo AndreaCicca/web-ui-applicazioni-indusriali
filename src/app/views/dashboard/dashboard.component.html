@@ -3,18 +3,18 @@
     <c-card class="chatbot-card">
       <c-card-body class="d-flex flex-column">
         <div class="query-section">
-          <label for="userQuery">La tua query:</label>
+          <label for="userQuery" style="padding-bottom: 10px;">La tua query:</label>
           <input id="userQuery" [(ngModel)]="userMessage" name="userMessage" placeholder="Scrivi la tua query..." />
         </div>
         <div class="response-section">
-          <label for="botResponse">Risposta:</label>
+          <label for="botResponse" style="padding-bottom: 10px;">Risposta:</label>
           <textarea id="botResponse" [(ngModel)]="botResponse" name="botResponse" readonly></textarea>
           <div *ngIf="loading" class="loader"></div>
         </div>
         <form cForm (ngSubmit)="sendMessage()" class="chatbot-input">
           <button cButton color="primary" type="submit">Invia</button>
         </form>
-        <p style="padding-top: 5px;"> API differente: {{serviceAPIPath}}</p>
+        <p style="padding-top: 10px;"> API differente: {{serviceAPIPath}}</p>
       </c-card-body>
     </c-card>
   </c-col>
