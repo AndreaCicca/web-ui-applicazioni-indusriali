@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
         next: (response) => {
           if (response.length > 0) {
             this.botResponse = response.map((result: IResponse) => `
-              <div class="paper-response">
+              <div>
                 <strong style="font-size: 1.2em;">Titolo:</strong> ${result.title || 'Nessun titolo'}
                 <br>
                 <strong>Punteggio:</strong> ${result.score || 'Nessun punteggio'}
