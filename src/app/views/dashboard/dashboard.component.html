@@ -3,12 +3,16 @@
     <c-card class="chatbot-card">
       <c-card-body class="d-flex flex-column">
         <div class="query-section">
-          <label for="userQuery" style="padding-bottom: 10px;">La tua query:</label>
+          <h2 for="userQuery" style="padding-bottom: 5px;">La tua query:</h2>
           <input id="userQuery" [(ngModel)]="userMessage" name="userMessage" placeholder="Scrivi la tua query..." />
         </div>
         <div class="response-section">
-          <label for="botResponse" style="padding-bottom: 10px;">Risposta:</label>
-          <textarea id="botResponse" [(ngModel)]="botResponse" name="botResponse" readonly></textarea>
+          <h2 for="botResponse" style="padding-bottom: 5px;">Risposta:</h2>
+
+          <!-- Questo è il contenitore che deve scrollare -->
+          <div id="botResponse" [innerHTML]="botResponse" class="response-content">
+          </div>
+
           <div *ngIf="loading" class="loader"></div>
         </div>
         <form cForm (ngSubmit)="sendMessage()" class="chatbot-input">

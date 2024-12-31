@@ -23,9 +23,10 @@ import {
   ToastHeaderComponent
 } from '@coreui/angular';
 
-interface IMessage {
-  text: string;
-  user: boolean;
+interface IResponse {
+  title: string;
+  score: number;
+  summary: string;
 }
 
 
@@ -52,6 +53,8 @@ export class DashboardComponent implements OnInit {
 
   private subscription!: Subscription;
 
+
+
   position = 'top-end';
   visible = signal(false);
   percentage = signal(0);
@@ -61,22 +64,22 @@ export class DashboardComponent implements OnInit {
       this.serviceAPIPath = data;
     });
   }
-
   public sendQuery(query: string): void {
     this.loading = true;
     const payload = { query: query };
-    this.http.post<any>(this.apiEndpoint, payload, { headers: { 'Content-Type': 'application/json' } })
+    this.http.post<IResponse[]>(this.apiEndpoint, payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
-            const result = response[0];
-            this.botResponse = `
-              <strong>Titolo:</strong> ${result.title || 'Nessun titolo'}
-              <br>
-              <strong>Punteggio:</strong> ${result.score || 'Nessun punteggio'}
-              <br>
-              <strong>Riassunto:</strong> ${result.summary || 'Nessun riassunto'}
-            `;
+            this.botResponse = response.map((result: IResponse) => `
+              <div class="paper-response">
+                <strong style="font-size: 1.2em;">Titolo:</strong> ${result.title || 'Nessun titolo'}
+                <br>
+                <strong>Punteggio:</strong> ${result.score || 'Nessun punteggio'}
+                <br>
+                <strong>Riassunto:</strong> ${result.summary || 'Nessun riassunto'}
+              </div>
+            `).join('<hr>');
           } else {
             this.botResponse = 'Nessuna risposta trovata';
           }
