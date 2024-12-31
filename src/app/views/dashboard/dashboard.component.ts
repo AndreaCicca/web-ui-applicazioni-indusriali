@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
 
   public toastMessage = 'Errore durante l\'invio del messaggio';
 
-  public apiEndpoint : string = "http://localhost:7777/query";
+  public apiEndpoint : string = "http://localhost:5001/query";
   public loading = false;
   public showToast = false;
 
@@ -62,41 +62,37 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  sendMessage(): void {
-    // Verifica se il messaggio dell'utente non è vuoto o composto solo da spazi
-    if (!this.userMessage.trim()) {
-        return; // Esci dalla funzione se il messaggio è vuoto
-    }
-
-    // Imposta lo stato di caricamento a true
+  public sendQuery(query: string): void {
     this.loading = true;
-
-    if (this.serviceAPIPath) {
-      this.apiEndpoint = this.serviceAPIPath;
-    }
-
-
-    // Invia la richiesta POST all'API
-    this.http.post<{ response: string }>(this.apiEndpoint, { query: this.userMessage.trim() }).subscribe({
+    const payload = { query: query };
+    this.http.post<any>(this.apiEndpoint, payload, { headers: { 'Content-Type': 'application/json' } })
+      .subscribe({
         next: (response) => {
-            // Gestisci la risposta dell'API
-            this.botResponse = response.response; // Imposta la risposta del bot
-            console.log(response.response);
-            this.loading = false; // Disabilita lo stato di caricamento
+          if (response.length > 0) {
+            const result = response[0];
+            this.botResponse = `
+              <strong>Titolo:</strong> ${result.title || 'Nessun titolo'}
+              <br>
+              <strong>Punteggio:</strong> ${result.score || 'Nessun punteggio'}
+              <br>
+              <strong>Riassunto:</strong> ${result.summary || 'Nessun riassunto'}
+            `;
+          } else {
+            this.botResponse = 'Nessuna risposta trovata';
+          }
+          this.loading = false;
         },
         error: (error) => {
-            // Gestisci gli errori
-            console.error('Errore durante l\'invio del messaggio:', error); // Log dell'errore
-            this.toggleToast(); // Mostra un toast di errore
-            this.loading = false; // Disabilita lo stato di caricamento
-            this.botResponse = 'Errore durante l\'invio del messaggio'; // Imposta un messaggio di errore
-        },
-        complete: () => {
-            // Azioni da eseguire al completamento della richiesta (opzionale)
-            this.userMessage = ''; // Resetta il campo del messaggio dell'utente
+          console.error('Errore durante la richiesta:', error);
+          this.showToast = true;
+          this.loading = false;
         }
-    });
-}
+      });
+  }
+
+  public sendMessage(): void {
+    this.sendQuery(this.userMessage);
+  }
 
 
   closeToast(): void {
