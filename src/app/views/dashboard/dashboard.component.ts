@@ -27,6 +27,7 @@ interface IResponse {
   title: string;
   score: number;
   summary: string;
+  id: string;
 }
 
 
@@ -45,7 +46,6 @@ export class DashboardComponent implements OnInit {
 
   public toastMessage = 'Errore durante l\'invio del messaggio';
 
-  public apiEndpoint : string = "http://localhost:5001/query";
   public loading = false;
   public showToast = false;
 
@@ -63,11 +63,20 @@ export class DashboardComponent implements OnInit {
     this.subscription = this.sharedService.apiPath$.subscribe(data => {
       this.serviceAPIPath = data;
     });
+
   }
   public sendQuery(query: string): void {
+
+    let apiEndPoint = this.serviceAPIPath;
+
+    console.log('API Path:', apiEndPoint);
+
     this.loading = true;
     const payload = { query: query };
-    this.http.post<IResponse[]>(this.apiEndpoint, payload, { headers: { 'Content-Type': 'application/json' } })
+
+    console.log('Invio query:', payload, "Al path:", apiEndPoint);
+
+    this.http.post<IResponse[]>(apiEndPoint, payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
@@ -78,6 +87,8 @@ export class DashboardComponent implements OnInit {
                 <strong>Punteggio:</strong> ${result.score || 'Nessun punteggio'}
                 <br>
                 <strong>Riassunto:</strong> ${result.summary || 'Nessun riassunto'}
+                <br>
+                <a href="https://arxiv.org/pdf/${result.id}" target="_blank">Link al paper</a>
               </div>
             `).join('<hr>');
           } else {

@@ -24,6 +24,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   saveApiPath(): void {
     this.sharedService.setApiPath(this.apiPath);
+    
   }
 
   getApiPath(): void {

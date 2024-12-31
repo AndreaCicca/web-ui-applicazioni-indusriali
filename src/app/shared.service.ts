@@ -11,14 +11,15 @@ export class SharedService {
   public apiPath$: Observable<string>;
 
   constructor(private cookieService: CookieService) {
-    const savedApiPath = this.cookieService.get('apiPath') || '';
-    this._apiPathSubject = new BehaviorSubject<string>(savedApiPath);
+    const endPointDefault = 'http://localhost:5001/query';
+    this._apiPathSubject = new BehaviorSubject<string>("");
     this.apiPath$ = this._apiPathSubject.asObservable();
+    this.setApiPath(endPointDefault);
   }
 
   setApiPath(path: string): void {
     this._apiPathSubject.next(path);
-    this.cookieService.set('apiPath', path);
+    this.cookieService.set('apiPath', path, 1);
     console.log('API Path set to: ' + path);
   }
 
