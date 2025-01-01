@@ -21,7 +21,10 @@ FROM nginx:alpine
 COPY --from=build /app/dist/ui-web/browser /usr/share/nginx/html
 
 # Copia il file di configurazione Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Aggiungi un comando di debug per verificare il contenuto del file
+RUN cat /etc/nginx/conf.d/default.conf
 
 # Espone la porta 80
 EXPOSE 80
