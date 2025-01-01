@@ -22,3 +22,9 @@ COPY --from=build /app/dist/ui-web/browser /usr/share/nginx/html
 
 # Copia il file di configurazione Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
+
+# Espone la porta 80
+EXPOSE 80
+
+# Avvia Nginx
+CMD ["nginx", "-g", "daemon off;"]
