@@ -24,10 +24,11 @@ import {
 } from '@coreui/angular';
 
 interface IResponse {
+  published: string;
+  arxiv_id: string;
   title: string;
   score: number;
   summary: string;
-  id: string;
 }
 
 
@@ -88,7 +89,11 @@ export class DashboardComponent implements OnInit {
                 <br>
                 <strong>Riassunto:</strong> ${result.summary || 'Nessun riassunto'}
                 <br>
-                <a href="https://arxiv.org/pdf/${result.id}" target="_blank">Link al paper</a>
+                <strong>arXiv-ID:</strong> ${result.arxiv_id || 'N/A'}
+                <br>
+                <strong>Pubblicato:</strong> ${result.published || 'N/A'}
+                <br>
+                <a href="https://arxiv.org/pdf/${result.arxiv_id}" target="_blank">Link al paper</a>
               </div>
             `).join('<hr>');
           } else {
