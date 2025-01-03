@@ -72,3 +72,8 @@
 .toast-body {
   padding: 1rem;
 }
+
+.response-content {
+  max-height: 50vh;
+  overflow-y: auto;
+}
