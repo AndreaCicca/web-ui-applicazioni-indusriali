@@ -22,12 +22,16 @@ import {
   ToastHeaderComponent
 } from '@coreui/angular';
 
-interface IResponse {
-  published: string;
-  arxiv_id: string;
-  title: string;
-  score: number;
-  summary: string;
+// interface IResponse {
+//   published: string;
+//   arxiv_id: string;
+//   title: string;
+//   score: number;
+//   summary: string;
+// }
+
+interface IResponse{
+  message: string;
 }
 
 @Component({
@@ -84,25 +88,17 @@ export class AgenteComponent implements OnInit {
     this.loading = true;
     const payload = { query: query };
 
-    console.log('Invio query:' +  payload + "Al path:" + apiEndPoint);
+    console.log('Invio query:' +  payload + "Al path:" + apiEndPoint+"agent");
 
-    this.http.post<IResponse[]>(apiEndPoint, payload, { headers: { 'Content-Type': 'application/json' } })
+    this.http.post<IResponse[]>(apiEndPoint+"agent", payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
             this.agentResponse = response.map((result: IResponse) => `
               <div>
-                <strong style="font-size: 1.2em;">Titolo:</strong> ${result.title || 'Nessun titolo'}
+                <strong style="font-size: 1.2em;">Messaggio di output:</strong> ${result.message || 'Nessun titolo'}
                 <br>
-                <strong>Punteggio:</strong> ${result.score || 'Nessun punteggio'}
-                <br>
-                <strong>Riassunto:</strong> ${result.summary || 'Nessun riassunto'}
-                <br>
-                <strong>arXiv-ID:</strong> ${result.arxiv_id || 'N/A'}
-                <br>
-                <strong>Pubblicato:</strong> ${result.published || 'N/A'}
-                <br>
-                <a href="https://arxiv.org/pdf/${result.arxiv_id}" target="_blank">Link al paper</a>
+
               </div>
             `).join('<hr>');
           } else {

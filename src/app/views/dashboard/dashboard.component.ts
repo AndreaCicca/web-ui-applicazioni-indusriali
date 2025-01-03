@@ -90,9 +90,9 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
     const payload = { query: query };
 
-    console.log('Invio query:' +  payload + "Al path:" + apiEndPoint);
+    console.log('Invio query:' +  payload + "Al path:" + apiEndPoint+"query");
 
-    this.http.post<IResponse[]>(apiEndPoint, payload, { headers: { 'Content-Type': 'application/json' } })
+    this.http.post<IResponse[]>(apiEndPoint + "query", payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
