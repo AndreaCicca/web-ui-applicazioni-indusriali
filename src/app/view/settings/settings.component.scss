@@ -1,3 +1,5 @@
+@import 'src/scss/styles.scss';
+
 .settings-container {
   margin: 16px;
 
@@ -28,7 +30,7 @@
       padding: 0.5rem;
       width: 100%;
       padding: 10px;
-      border: 1px solid rgba(90, 0, 209, 0.5);
+      border: 1px solid $primary-color-vetor;
       border-radius: 5px;
     }
   }

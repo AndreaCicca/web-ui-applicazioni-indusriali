@@ -1,21 +1,21 @@
-<c-row class="chatbot-container">
+<c-row class="agent-response-container">
   <c-col>
-    <c-card class="chatbot-card">
+    <c-card class="agent-response-card">
       <c-card-body class="d-flex flex-column">
         <div class="query-section">
-          <h2 for="userQuery" style="padding-bottom: 5px;">La tua query:</h2>
-          <input id="userQuery" [(ngModel)]="userMessage" name="userMessage" placeholder="Scrivi la tua query..." />
+          <h2 for="agentQuery" style="padding-bottom: 5px;">La tua query:</h2>
+          <input id="agentQuery" [(ngModel)]="userMessage" name="receivedQuery" placeholder="Scrivi la tua query..." />
         </div>
         <div class="response-section">
-          <h2 for="botResponse" style="padding-bottom: 5px;">Risposta Database Vettoriale:</h2>
+          <h2 for="agentResponse" style="padding-bottom: 5px;">Risposta dell'agente:</h2>
 
-          <!-- Questo è il contenitore che deve scrollare -->
-          <div id="botResponse" [innerHTML]="botResponse" class="response-content">
+          <!-- Contenitore con scrolling per la risposta dell'agente -->
+          <div id="agentResponse" [innerHTML]="agentResponse" class="response-content">
           </div>
 
           <div *ngIf="loading" class="loader"></div>
         </div>
-        <form cForm (ngSubmit)="sendMessage()" class="chatbot-input">
+        <form cForm (ngSubmit)="sendAgentResponse()" class="chatbot-input">
           <button cButton color="primary" type="submit">Invia</button>
         </form>
         <p style="padding-top: 10px;"> API Corrente: {{serviceAPIPath}}</p>
@@ -23,6 +23,7 @@
     </c-card>
   </c-col>
 </c-row>
+
 
 <!-- Toast -->
 <c-toaster [placement]="position" class="p-3" position="fixed">

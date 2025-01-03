@@ -22,6 +22,10 @@ export const routes: Routes = [
         path: 'impostazioni',
         loadChildren: () => import('./view/settings/routes').then((m) => m.routes)
       },
+      {
+        path: 'agente',
+        loadChildren: () => import('./view/agente/routes').then((m) => m.routes)
+      },
       // {
       //   path: 'theme',
       //   loadChildren: () => import('./views/theme/routes').then((m) => m.routes)

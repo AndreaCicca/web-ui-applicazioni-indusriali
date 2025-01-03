@@ -6,19 +6,18 @@
   }
 }
 
-.chatbot-container {
+.agent-response-container {
   display: flex;
   flex-direction: column;
   height: calc(85vh - 100px);
-  // height: 100vh;
 }
 
-.chatbot-card {
+.agent-response-card {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 40px $primary-color-vetor;
+  box-shadow: 0 0 40px $primary-color-agent;
   border-radius: 20px;
 }
 
@@ -38,7 +37,7 @@
 .response-section textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid $primary-color-vetor;
+  border: 1px solid $primary-color-agent;
   border-radius: 5px;
 }
 
@@ -56,10 +55,9 @@
   right: 20px;
   min-width: 200px;
   z-index: 1050;
-  // background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
-  box-shadow: 0 0.25rem 0.75rem $primary-color-vetor;
+  box-shadow: 0 0.25rem 0.75rem primary-color-agent;
 }
 
 .toast-header {
@@ -67,18 +65,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-  // border-bottom: 1px solid #e9ecef;
-  // background-color: #f8f9fa;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
 
 .toast-body {
   padding: 1rem;
-}
-
-
-.response-content {
-  max-height: 50vh;
-  overflow-y: auto;
 }

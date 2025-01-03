@@ -15,7 +15,6 @@ import {
   TextColorDirective,
 } from '@coreui/angular';
 
-
 import {
   ToastBodyComponent,
   ToastComponent,
@@ -31,10 +30,8 @@ interface IResponse {
   summary: string;
 }
 
-
 @Component({
-  templateUrl: 'dashboard.component.html',
-  styleUrls: ['dashboard.component.scss'],
+  selector: 'app-agente',
   imports: [FormsModule,
     CommonModule,
     HttpClientModule,
@@ -50,37 +47,34 @@ interface IResponse {
     ToasterComponent,
     ToastComponent,
     ToastHeaderComponent,
-    ToastBodyComponent]
-
-
+    ToastBodyComponent],
+  templateUrl: './agente.component.html',
+  styleUrl: './agente.component.scss'
 })
-export class DashboardComponent implements OnInit {
-    constructor(private http: HttpClient, private sharedService: SharedService) { }
+export class AgenteComponent implements OnInit {
+
+  constructor(private http: HttpClient, private sharedService: SharedService) { }
 
   public userMessage = '';
-  public botResponse = '';
+  public agentResponse = '';
 
   public toastMessage = 'Errore durante l\'invio del messaggio';
 
   public loading = false;
   public showToast = false;
-
   public serviceAPIPath = '';
-
-  private subscription!: Subscription;
-
-
 
   position = 'top-end';
   visible = signal(false);
   percentage = signal(0);
 
+  private subscription!: Subscription;
   ngOnInit(): void {
     this.subscription = this.sharedService.apiPath$.subscribe(data => {
       this.serviceAPIPath = data;
     });
-
   }
+
   public sendQuery(query: string): void {
 
     let apiEndPoint = this.serviceAPIPath;
@@ -96,7 +90,7 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
-            this.botResponse = response.map((result: IResponse) => `
+            this.agentResponse = response.map((result: IResponse) => `
               <div>
                 <strong style="font-size: 1.2em;">Titolo:</strong> ${result.title || 'Nessun titolo'}
                 <br>
@@ -112,7 +106,7 @@ export class DashboardComponent implements OnInit {
               </div>
             `).join('<hr>');
           } else {
-            this.botResponse = 'Nessuna risposta trovata';
+            this.agentResponse = 'Nessuna risposta trovata';
           }
           this.loading = false;
         },
@@ -124,10 +118,9 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  public sendMessage(): void {
+  public sendAgentResponse(): void {
     this.sendQuery(this.userMessage);
   }
-
 
   closeToast(): void {
     this.showToast = false;
@@ -145,4 +138,5 @@ export class DashboardComponent implements OnInit {
   onTimerChange($event: number) {
     this.percentage.set($event * 25);
   }
+
 }
