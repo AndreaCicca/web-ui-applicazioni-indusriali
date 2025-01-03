@@ -35,7 +35,22 @@ interface IResponse {
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
-  imports: [FormsModule, CommonModule, HttpClientModule, TextColorDirective, CardComponent, CardBodyComponent, RowComponent, ColComponent, ButtonDirective, ReactiveFormsModule, ButtonDirective, ProgressComponent, ToasterComponent, ToastComponent, ToastHeaderComponent, ToastBodyComponent]
+  imports: [FormsModule,
+    CommonModule,
+    HttpClientModule,
+    TextColorDirective,
+    CardComponent,
+    CardBodyComponent,
+    RowComponent,
+    ColComponent,
+    ButtonDirective,
+    ReactiveFormsModule,
+    ButtonDirective,
+    ProgressComponent,
+    ToasterComponent,
+    ToastComponent,
+    ToastHeaderComponent,
+    ToastBodyComponent]
 
 
 })
