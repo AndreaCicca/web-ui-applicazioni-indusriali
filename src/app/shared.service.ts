@@ -11,7 +11,7 @@ export class SharedService {
   public apiPath$: Observable<string>;
 
   constructor(private cookieService: CookieService) {
-    const endPointDefault = 'http://localhost:5001/query';
+    const endPointDefault = 'http://192.268.1.26:5001/query';
     this._apiPathSubject = new BehaviorSubject<string>("");
     this.apiPath$ = this._apiPathSubject.asObservable();
     this.setApiPath(endPointDefault);
@@ -19,7 +19,7 @@ export class SharedService {
 
   setApiPath(path: string): void {
     this._apiPathSubject.next(path);
-    this.cookieService.set('apiPath', path, 1);
+    this.cookieService.set('apiPath', path, 7);
     console.log('API Path set to: ' + path);
   }
 
