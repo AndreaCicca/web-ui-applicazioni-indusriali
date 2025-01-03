@@ -7,3 +7,5 @@ Questa UI è stata creata per poter interagire con il servizio AI/Agenti creato 
 - Core UI
 
 https://coreui.io/angular/
+
+https://applicazioni-indusriali.vercel.app
