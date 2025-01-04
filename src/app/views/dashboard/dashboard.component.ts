@@ -141,6 +141,7 @@ export class DashboardComponent implements OnInit {
           console.error('Errore durante la richiesta:', error);
           this.toggleToast();
           this.loading = false;
+          this.botResponse = "❌"
         }
       });
   }

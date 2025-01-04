@@ -130,6 +130,7 @@ export class AgenteComponent implements OnInit {
           console.error('Errore durante la richiesta:', error);
           this.toggleToast();
           this.loading = false;
+          this.agentResponse = "❌"
         }
       });
   }
