@@ -109,20 +109,16 @@ export class AgenteComponent implements OnInit {
 
     console.log('Invio query:' + payload + "Al path:" + apiEndPoint + "agent");
 
-    this.http.post<IResponse[]>(apiEndPoint + "agent", payload, { headers: { 'Content-Type': 'application/json' } })
+    this.http.post<IResponse>(apiEndPoint + "agent", payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
           console.log('Risposta ricevuta:', response);
-          if (response.length > 0) {
-            this.agentResponse = response.map((result: IResponse) => `
-              <div>
-                <strong style="font-size: 1.2em;">Messaggio di output:</strong> ${result.message || 'Nessun titolo'}
-                <br>
-              </div>
-            `).join('<hr>');
-          } else {
-            this.agentResponse = 'Nessuna risposta trovata';
-          }
+          this.agentResponse = `
+            <div>
+              <strong style="font-size: 1.2em;">Messaggio di output:</strong> ${response.message || 'Nessun messaggio'}
+              <br>
+            </div>
+          `;
           this.loading = false;
         },
         error: (error) => {
