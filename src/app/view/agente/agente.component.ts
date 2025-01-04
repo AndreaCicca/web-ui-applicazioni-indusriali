@@ -44,9 +44,7 @@ interface IResponse {
     CardBodyComponent,
     RowComponent,
     ColComponent,
-    ButtonDirective,
     ReactiveFormsModule,
-    ButtonDirective,
     ProgressComponent,
     ToasterComponent,
     ToastComponent,
@@ -138,6 +136,7 @@ export class AgenteComponent implements OnInit {
 
   public sendAgentResponse(): void {
     this.sendQuery(this.userMessage);
+    console.log('Messaggio inviato:', this.userMessage);
   }
 
   closeToast(): void {
