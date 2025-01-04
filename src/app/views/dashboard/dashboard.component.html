@@ -12,11 +12,13 @@
           <!-- Questo è il contenitore che deve scrollare -->
           <div id="botResponse" [innerHTML]="botResponse" class="response-content">
           </div>
-
-          <div *ngIf="loading" class="loader"></div>
+          
         </div>
         <form cForm (ngSubmit)="sendMessage()" class="chatbot-input">
-          <button cButton color="primary" type="submit">Invia</button>
+          <div style="display: flex; align-items: center;">
+            <button cButton color="primary" type="submit">Invia</button>
+            <div *ngIf="loading" class="loader" style="margin-left: 10px;"></div>
+          </div>
         </form>
         <p style="padding-top: 10px;"> API Corrente: {{serviceAPIPath}}query</p>
       </c-card-body>

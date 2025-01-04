@@ -88,6 +88,27 @@ export class DashboardComponent implements OnInit {
     console.log('API Path:', apiEndPoint);
 
     this.loading = true;
+    this.botResponse = `
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-5"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-3"></span>
+      <span class="placeholder col-9"></span>
+      <span class="placeholder col-2"></span>
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-5"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-3"></span>
+      <span class="placeholder col-9"></span>
+      <span class="placeholder col-2"></span>
+    </p>
+  `;
+
     const payload = { query: query };
 
     console.log('Invio query:' +  payload + "Al path:" + apiEndPoint+"query");

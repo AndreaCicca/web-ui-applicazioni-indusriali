@@ -30,7 +30,7 @@ import {
 //   summary: string;
 // }
 
-interface IResponse{
+interface IResponse {
   message: string;
 }
 
@@ -86,11 +86,32 @@ export class AgenteComponent implements OnInit {
     console.log('API Path:', apiEndPoint);
 
     this.loading = true;
+    this.agentResponse = `
+      <p class="card-text placeholder-glow">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-5"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-8"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-3"></span>
+        <span class="placeholder col-9"></span>
+        <span class="placeholder col-2"></span>
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-5"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-8"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-3"></span>
+        <span class="placeholder col-9"></span>
+        <span class="placeholder col-2"></span>
+      </p>
+    `;
+
     const payload = { query: query };
 
-    console.log('Invio query:' +  payload + "Al path:" + apiEndPoint+"agent");
+    console.log('Invio query:' + payload + "Al path:" + apiEndPoint + "agent");
 
-    this.http.post<IResponse[]>(apiEndPoint+"agent", payload, { headers: { 'Content-Type': 'application/json' } })
+    this.http.post<IResponse[]>(apiEndPoint + "agent", payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
@@ -98,7 +119,6 @@ export class AgenteComponent implements OnInit {
               <div>
                 <strong style="font-size: 1.2em;">Messaggio di output:</strong> ${result.message || 'Nessun titolo'}
                 <br>
-
               </div>
             `).join('<hr>');
           } else {
