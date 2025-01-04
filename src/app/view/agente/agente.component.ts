@@ -114,6 +114,7 @@ export class AgenteComponent implements OnInit {
     this.http.post<IResponse[]>(apiEndPoint + "agent", payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
+          console.log('Risposta ricevuta:', response);
           if (response.length > 0) {
             this.agentResponse = response.map((result: IResponse) => `
               <div>
