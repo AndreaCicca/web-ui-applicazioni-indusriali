@@ -81,7 +81,7 @@ export class AgenteComponent implements OnInit {
 
   public sendQuery(query: string): void {
 
-    let apiEndPoint = this.serviceAPIPath;
+    const apiEndPoint = this.serviceAPIPath;
 
     console.log('API Path:', apiEndPoint);
 
