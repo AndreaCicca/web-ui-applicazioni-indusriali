@@ -5,8 +5,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SharedService } from '../../shared.service';
+import { marked } from 'marked';
+
 import {
-  ButtonDirective,
   CardBodyComponent,
   CardComponent,
   ColComponent,
@@ -77,6 +78,23 @@ export class AgenteComponent implements OnInit {
     });
   }
 
+  public renderMarkdown(markdown: string): void {
+    const htmlContent = marked.parse(markdown);
+    if (htmlContent instanceof Promise) {
+      htmlContent.then((content) => {
+        const agentResponseElement = document.getElementById('agentResponse');
+        if (agentResponseElement) {
+          agentResponseElement.innerHTML = content;
+        }
+      });
+    } else {
+      const agentResponseElement = document.getElementById('agentResponse');
+      if (agentResponseElement) {
+        agentResponseElement.innerHTML = htmlContent;
+      }
+    }
+  }
+
   public sendQuery(query: string): void {
 
     const apiEndPoint = this.serviceAPIPath;
@@ -84,48 +102,46 @@ export class AgenteComponent implements OnInit {
     console.log('API Path:', apiEndPoint);
 
     this.loading = true;
-    this.agentResponse = `
-      <p class="card-text placeholder-glow">
-        <span class="placeholder col-7"></span>
-        <span class="placeholder col-5"></span>
-        <span class="placeholder col-6"></span>
-        <span class="placeholder col-8"></span>
-        <span class="placeholder col-4"></span>
-        <span class="placeholder col-3"></span>
-        <span class="placeholder col-9"></span>
-        <span class="placeholder col-2"></span>
-        <span class="placeholder col-7"></span>
-        <span class="placeholder col-5"></span>
-        <span class="placeholder col-6"></span>
-        <span class="placeholder col-8"></span>
-        <span class="placeholder col-4"></span>
-        <span class="placeholder col-3"></span>
-        <span class="placeholder col-9"></span>
-        <span class="placeholder col-2"></span>
-      </p>
-    `;
+    // this.agentResponse = `
+    //   <p class="card-text placeholder-glow">
+    //     <span class="placeholder col-7"></span>
+    //     <span class="placeholder col-5"></span>
+    //     <span class="placeholder col-6"></span>
+    //     <span class="placeholder col-8"></span>
+    //     <span class="placeholder col-4"></span>
+    //     <span class="placeholder col-3"></span>
+    //     <span class="placeholder col-9"></span>
+    //     <span class="placeholder col-2"></span>
+    //     <span class="placeholder col-7"></span>
+    //     <span class="placeholder col-5"></span>
+    //     <span class="placeholder col-6"></span>
+    //     <span class="placeholder col-8"></span>
+    //     <span class="placeholder col-4"></span>
+    //     <span class="placeholder col-3"></span>
+    //     <span class="placeholder col-9"></span>
+    //     <span class="placeholder col-2"></span>
+    //   </p>
+    // `;
 
     const payload = { query: query };
 
-    console.log('Invio query:' + payload + "Al path:" + apiEndPoint + "agent");
+    console.log('Invio query:' + payload.query + "Al path:" + apiEndPoint + "agent");
+
+
 
     this.http.post<IResponse>(apiEndPoint + "agent", payload, { headers: { 'Content-Type': 'application/json' } })
       .subscribe({
         next: (response) => {
           console.log('Risposta ricevuta:', response);
-          this.agentResponse = `
-            <div>
-              <strong style="font-size: 1.2em;">Messaggio di output:</strong> ${response.message || 'Nessun messaggio'}
-              <br>
-            </div>
-          `;
+          this.renderMarkdown(response.message)
           this.loading = false;
         },
         error: (error) => {
           console.error('Errore durante la richiesta:', error);
           this.toggleToast();
           this.loading = false;
-          this.agentResponse = "❌"
+            const errorMessage = error.message || JSON.stringify(error);
+            this.renderMarkdown("**Errore nella ricezione della risposta** \n\n" + errorMessage);
         }
       });
   }
