@@ -19,8 +19,18 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 40px $primary-color-vetor;
+  box-shadow: 0 0 40px $primary-color-vector;
   border-radius: 20px;
+  animation: changeBoxShadow 2s infinite alternate;
+}
+
+@keyframes changeBoxShadow {
+  0% {
+    box-shadow: 0 0 40px $primary-color-vector;
+  }
+  100% {
+    box-shadow: 0 0 40px $secondary-color-vector;
+  }
 }
 
 .query-section,
@@ -39,7 +49,7 @@
 .response-section textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid $primary-color-vetor;
+  border: 1px solid $primary-color-vector;
   border-radius: 5px;
 }
 
@@ -60,7 +70,7 @@
   // background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
-  box-shadow: 0 0.25rem 0.75rem $primary-color-vetor;
+  box-shadow: 0 0.25rem 0.75rem $primary-color-vector;
 }
 
 .toast-header {

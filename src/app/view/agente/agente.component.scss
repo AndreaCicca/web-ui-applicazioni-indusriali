@@ -20,6 +20,16 @@
   flex-direction: column;
   box-shadow: 0 0 40px $primary-color-agent;
   border-radius: 20px;
+  animation: changeBoxShadow 2s infinite alternate;
+}
+
+@keyframes changeBoxShadow {
+  0% {
+    box-shadow: 0 0 40px $primary-color-agent;
+  }
+  100% {
+    box-shadow: 0 0 40px $secondary-color-agent;
+  }
 }
 
 .query-section,
