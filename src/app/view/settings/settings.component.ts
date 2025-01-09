@@ -12,6 +12,7 @@ import { TableModule, UtilitiesModule, FormModule, ButtonDirective } from '@core
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   apiPath: string = '';
+  apiKey: string = '';
   private subscription!: Subscription;
 
   constructor(public sharedService: SharedService) {}
@@ -20,15 +21,25 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.subscription = this.sharedService.apiPath$.subscribe(path => {
       this.apiPath = path;
     });
+    this.subscription = this.sharedService.apiKey$.subscribe(key => {
+      this.apiKey = key;
+    });
   }
 
   saveApiPath(): void {
     this.sharedService.setApiPath(this.apiPath);
-    
+  }
+
+  saveApiKey(): void {
+    this.sharedService.setApiKey(this.apiKey);
   }
 
   getApiPath(): void {
     this.apiPath = this.sharedService.getApiPath();
+  }
+
+  getApiKey(): void {
+    this.apiKey = this.sharedService.getApiKey();
   }
 
   ngOnDestroy(): void {

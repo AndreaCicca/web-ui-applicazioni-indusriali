@@ -1,11 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import { SharedService } from '../../shared.service';
 import { marked } from 'marked';
+import {ReactiveFormsModule } from '@angular/forms';
 
 import {
   CardBodyComponent,
@@ -66,6 +66,9 @@ export class AgenteComponent implements OnInit {
   public loading = false;
   public showToast = false;
   public serviceAPIPath = '';
+  public serviceApiKey = '';
+
+  public ckeckedApi = true;
 
   position = 'top-end';
   visible = signal(false);
@@ -75,6 +78,10 @@ export class AgenteComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.sharedService.apiPath$.subscribe(data => {
       this.serviceAPIPath = data;
+    });
+
+    this.subscription = this.sharedService.apiKey$.subscribe(data => {
+      this.serviceApiKey = data;
     });
   }
 
@@ -98,7 +105,8 @@ export class AgenteComponent implements OnInit {
   public sendQuery(query: string): void {
 
     const apiEndPoint = this.serviceAPIPath;
-
+    const apiKey = this.serviceApiKey;
+    let payload;
     console.log('API Path:', apiEndPoint);
 
     this.loading = true;
@@ -123,10 +131,14 @@ export class AgenteComponent implements OnInit {
     //   </p>
     // `;
 
-    const payload = { query: query };
+    if (!this.ckeckedApi) {
+      payload = { query: query};
+      console.log('Invio query:' + payload.query + "Al path:" + apiEndPoint + "agent" + " senza chiave");
 
-    console.log('Invio query:' + payload.query + "Al path:" + apiEndPoint + "agent");
-
+    } else{
+      payload = { query: query, apiKey: apiKey};
+      console.log('Invio query:' + payload.query + "Al path:" + apiEndPoint + "agent" + "Con Chiave " + apiKey);
+    }
 
 
     this.http.post<IResponse>(apiEndPoint + "agent", payload, { headers: { 'Content-Type': 'application/json' } })
@@ -166,6 +178,12 @@ export class AgenteComponent implements OnInit {
 
   onTimerChange($event: number) {
     this.percentage.set($event * 25);
+  }
+
+  onSwitchChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.ckeckedApi = inputElement.checked;
+    console.log('Stato dello switch:', this.ckeckedApi);
   }
 
 }

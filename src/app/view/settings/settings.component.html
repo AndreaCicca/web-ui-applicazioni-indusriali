@@ -11,6 +11,17 @@
     />
     <button cButton color="primary" (click)="saveApiPath()">Salva Path</button>
   </form>
+  <br />
+  <form cForm class="form-control">
+    <label for="apiPath">Chiave API:</label>
+    <input
+      id="apiKey"
+      name="apiKey"
+      [(ngModel)]="apiKey"
+      placeholder="Inserisci la chiave della tua API"
+    />
+    <button cButton color="primary" (click)="saveApiKey()">Salva Chiave</button>
+  </form>
 
   <h3 style="padding-top: 30px;">Key-Value Correnti</h3>
   <table cTable [striped]="true">
@@ -24,6 +35,10 @@
       <tr>
         <td>Hostname corrente per la API</td>
         <td>{{ this.sharedService.getApiPath() }}</td>
+      </tr>
+      <tr>
+        <td>Chiave per la API API</td>
+        <td>{{ this.sharedService.getApiKey() }}</td>
       </tr>
     </tbody>
   </table>
