@@ -137,7 +137,7 @@ export class AgenteComponent implements OnInit {
 
     } else{
       payload = { query: query, apiKey: apiKey};
-      console.log('Invio query:' + payload.query + "Al path:" + apiEndPoint + "agent" + "Con Chiave " + apiKey);
+      console.log('Invio query:' + payload.query + "Al path:" + apiEndPoint + "agent" + " Con Chiave " + apiKey);
     }
 
 
