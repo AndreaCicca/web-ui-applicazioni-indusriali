@@ -29,6 +29,18 @@ L'architettura del progetto prevede i seguenti elementi infrastrutturali e le lo
 - Una interfaccia web che permetta all’utente di interagire con il sistema.
 
 Il vector DB Qdrant, il sistema ad agenti, l’API e pagina web sono istanziate sulla stessa macchina, mentre i modelli LLM sono serviti in cloud (DeepSeek) o da una macchina esterna (Llama 3.2, qwq).
+
+
+## Crediti
+Il progetto è stato sviluppato per il corso di Applicazioni industriali dell'intelligenza artificiale dal seguente gruppo:
+- Andrea Ciccarello
+- Gian Marco Simonazzi
+- Jacopo Arcari
+
+## Link ai repository github
+
+- [Frontend in Angular](https://github.com/AndreaCicca/web-ui-applicazioni-indusriali/tree/main).
+- [Backend per vettorizzazione, agente e query](https://github.com/AndreaCicca/arXiv-vettorizzazione).
 `);
   }
 

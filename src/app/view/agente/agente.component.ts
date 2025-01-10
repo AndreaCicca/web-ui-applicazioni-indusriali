@@ -68,7 +68,7 @@ export class AgenteComponent implements OnInit {
   public serviceAPIPath = '';
   public serviceApiKey = '';
 
-  public ckeckedApi = true;
+  public ckeckedApi = false;
 
   position = 'top-end';
   visible = signal(false);
