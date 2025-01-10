@@ -25,6 +25,11 @@ export const navItems: INavData[] = [
     url: '/impostazioni',
     iconComponent: { name: 'cil-settings' },
   },
+  {
+    name: 'Info',
+    url: '/about',
+    iconComponent: { name: 'cil-settings' },
+  },
   // {
   //   title: true,
   //   name: 'Theme'
