@@ -1,0 +1,17 @@
+services:
+  angular:
+    container_name: angular-app
+    hostname: angular-app
+    image: flask-webserver-angular
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    networks:
+      - qdrant_bridge
+
+# This network already exists and contains the qdrant container.
+# The port to be selected is before the docker port-forwarding.
+networks:
+  qdrant_bridge:
+    external: true
