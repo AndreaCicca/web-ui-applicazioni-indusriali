@@ -3,8 +3,7 @@ services:
     container_name: angular-app
     hostname: angular-app
     image: flask-webserver-angular
-    build:
-      dockerfile: Dockerfile
+    build: .
     ports:
       - "4200:80"
     networks:

@@ -37,7 +37,7 @@ function isOverflown(element: HTMLElement) {
         ShadowOnScrollDirective,
         ContainerComponent,
         RouterOutlet,
-        DefaultFooterComponent
+        // DefaultFooterComponent
     ]
 })
 export class DefaultLayoutComponent {
