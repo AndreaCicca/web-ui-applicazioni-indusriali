@@ -4,7 +4,7 @@
       <c-card-body class="d-flex flex-column">
         <div class="query-section">
           <h2 for="userQuery" style="padding-bottom: 5px;">La tua query:</h2>
-          <input id="userQuery" [(ngModel)]="userMessage" name="userMessage" placeholder="Scrivi la tua query..." />
+          <input id="userQuery" [(ngModel)]="userMessage" name="userMessage" placeholder="Scrivi la tua query..." (keydown.enter)="sendMessage()" />
         </div>
         <div class="response-section">
           <h2 for="botResponse" style="padding-bottom: 5px;">Risposta Database Vettoriale:</h2>

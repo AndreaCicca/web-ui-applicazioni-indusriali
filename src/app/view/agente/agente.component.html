@@ -4,7 +4,7 @@
       <c-card-body class="d-flex flex-column">
         <div class="query-section">
           <h2 for="agentQuery" style="padding-bottom: 5px;">La tua query:</h2>
-          <input id="agentQuery" [(ngModel)]="userMessage" name="receivedQuery" placeholder="Scrivi la tua query..." />
+          <input id="agentQuery" [(ngModel)]="userMessage" name="receivedQuery" placeholder="Scrivi la tua query..." (keydown.enter)="sendAgentResponse()"/>
         </div>
         <div class="response-section">
           <h2 for="agentResponse" style="padding-bottom: 5px;">Risposta dell'agente:</h2>
